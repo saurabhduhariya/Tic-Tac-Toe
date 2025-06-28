@@ -1,0 +1,723 @@
+body {
+  background-color: #23272f;
+  color: white;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Main Container */
+.game-container {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.game-container h1 {
+  display: none !important; /* Hide the main page title */
+}
+
+/* Title above the game area */
+.main-game h1 {
+  display: block !important;
+  text-align: center !important;
+  margin-bottom: 40px !important;
+  margin-top: 0 !important;
+  color: #5468ff !important;
+  font-size: 2.5em !important;
+  line-height: 1.2 !important;
+  font-weight: bold !important;
+}
+
+/* Game Layout */
+.game-layout {
+  display: flex;
+  gap: 20px;
+  min-height: calc(100vh - 140px);
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  background-color: #2a2f3a;
+  border-radius: 15px;
+  padding: 20px;
+  border: 2px solid #0074a6;
+  height: fit-content;
+  margin-top: 5%;
+  align-self: flex-start;
+}
+
+.sidebar-section {
+  margin-bottom: 20px;
+}
+
+.sidebar-section h3 {
+  margin: 0 0 15px 0;
+  color: #5468ff;
+  font-size: 1.2em;
+  border-bottom: 2px solid #0074a6;
+  padding-bottom: 8px;
+}
+
+/* Round Buttons */
+.round-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.round-buttons button {
+  padding: 12px 16px;
+  font-size: 1em;
+  border: 2px solid #0074a6;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.round-buttons button:hover {
+  background-color: #0074a6;
+  transform: translateX(5px);
+}
+
+.round-buttons button.active {
+  background-color: #0074a6;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(0, 116, 166, 0.5);
+}
+
+/* Custom Input */
+.custom-input {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.custom-input input {
+  padding: 10px;
+  border: 2px solid #0074a6;
+  background-color: #23272f;
+  color: white;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.custom-input input:focus {
+  outline: none;
+  border-color: #5468ff;
+  box-shadow: 0 0 5px rgba(84, 104, 255, 0.5);
+}
+
+.apply-btn {
+  padding: 8px 16px;
+  background-color: #5468ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
+}
+
+.apply-btn:hover {
+  background-color: #4056d4;
+}
+
+/* Mode Buttons */
+.mode-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mode-buttons button {
+  padding: 12px 16px;
+  font-size: 1em;
+  border: 2px solid #5468ff;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.mode-buttons button:hover {
+  background-color: #5468ff;
+  transform: translateX(5px);
+}
+
+.mode-buttons button.active {
+  background-color: #5468ff;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(84, 104, 255, 0.5);
+}
+
+/* Scoreboard in Sidebar */
+.round-info p {
+  margin: 0;
+  text-align: center;
+  font-size: 1.1em;
+  color: #ccc;
+  padding: 10px;
+  background-color: #23272f;
+  border-radius: 5px;
+}
+
+.scoreboard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.score-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #23272f;
+  border-radius: 5px;
+  border: 1px solid #0074a6;
+}
+
+.player-name {
+  font-size: 0.9em;
+  color: #ccc;
+}
+
+.score-number {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #0074a6;
+}
+
+/* Main Game Area */
+.main-game {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0;
+  padding-left: 20px;
+  padding-top: 20px;
+  min-height: calc(100vh - 100px);
+}
+
+/* Remove the previous positioning that moved elements to 60% */
+.main-game > * {
+  margin-left: auto;
+  margin-right: auto;
+  transform: none;
+}
+
+/* Game Title Above Board */
+.main-game h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #5468ff;
+  font-size: 2.5em;
+  margin-top: 0;
+}
+
+h1 {
+  text-align: center;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
+  cursor: pointer;
+  position: relative;
+}
+
+.tile {
+  color: currentColor;
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-border {
+  border-right: 0.2em solid #0074a6;
+}
+
+.bottom-border {
+  border-bottom: 0.2em solid #0074a6;
+}
+
+.x-hover:hover::after {
+  content: "X";
+  opacity: 0.4;
+}
+
+.o-hover:hover::after {
+  content: "O";
+  opacity: 0.4;
+}
+
+.strike {
+  position: absolute;
+  background-color: darkorange;
+}
+
+.strike-row-1 {
+  width: 100%;
+  height: 4px;
+  top: 15%;
+}
+.strike-row-2 {
+  width: 100%;
+  height: 4px;
+  top: 48%;
+}
+.strike-row-3 {
+  width: 100%;
+  height: 4px;
+  top: 83%;
+}
+.strike-col-1 {
+  height: 100%;
+  width: 4px;
+  left: 15%;
+}
+.strike-col-2 {
+  height: 100%;
+  width: 4px;
+  left: 48%;
+}
+.strike-col-3 {
+  height: 100%;
+  width: 4px;
+  left: 83%;
+}
+.strike-diag-1 {
+  width: 90%;
+  height: 4px;
+  top: 50%;
+  left: 5%;
+  transform: skewY(45deg);
+}
+.strike-diag-2 {
+  width: 90%;
+  height: 4px;
+  top: 50%;
+  left: 5%;
+  transform: skewY(-45deg);
+}
+
+.game-over {
+  text-align: center;
+  border: #5468ff 8px;
+  border-style: dotted;
+  padding: 10px;
+  margin-top: 20px;
+  font-size: 1.5em;
+}
+
+.reset-button {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #0074a6;
+  color: white;
+  width: 100%;
+  font-size: 1.5em;
+}
+
+/* Game Mode Selector */
+.game-mode-selector {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  justify-content: center;
+}
+
+.game-mode-selector button {
+  padding: 10px 20px;
+  font-size: 1em;
+  border: 2px solid #0074a6;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.game-mode-selector button:hover {
+  background-color: #0074a6;
+}
+
+.game-mode-selector button.active {
+  background-color: #0074a6;
+  font-weight: bold;
+}
+
+/* Game Status */
+.game-status {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.2em;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-status p {
+  margin: 0;
+  color: #5468ff;
+  font-weight: bold;
+}
+
+/* Board Styling */
+.board {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
+  cursor: pointer;
+  position: relative;
+  margin: 20px 0;
+}
+
+/* Match Winner - Redesigned */
+.match-winner {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 30px;
+  margin: 20px 0;
+  border-radius: 15px;
+  text-align: center;
+  animation: celebration 0.6s ease-in-out;
+  max-width: 500px;
+  width: 100%;
+}
+
+.match-winner h2 {
+  margin: 0 0 15px 0;
+  font-size: 2em;
+  color: gold;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.match-winner p {
+  font-size: 1.3em;
+  margin: 15px 0;
+  color: white;
+}
+
+.final-score {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+.final-score p {
+  margin: 0;
+  font-size: 1.1em;
+  color: #ffd700;
+}
+
+.new-match-button {
+  padding: 15px 30px;
+  font-size: 1.2em;
+  background-color: #0074a6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: all 0.3s ease;
+}
+
+.new-match-button:hover {
+  background-color: #005a82;
+  transform: translateY(-2px);
+}
+
+/* Round Result - Redesigned */
+.round-result {
+  background-color: #2a2f3a;
+  padding: 25px;
+  margin: 20px 0;
+  border-radius: 10px;
+  text-align: center;
+  border: 2px solid #5468ff;
+  max-width: 500px;
+  width: 100%;
+}
+
+.round-result h3 {
+  margin: 0 0 15px 0;
+  color: #5468ff;
+}
+
+.round-result p {
+  margin: 15px 0;
+  font-size: 1.1em;
+}
+
+.next-round-button {
+  padding: 12px 24px;
+  font-size: 1.1em;
+  background-color: #5468ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: all 0.3s ease;
+}
+
+.next-round-button:hover {
+  background-color: #4056d4;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .game-layout {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .sidebar {
+    width: 100%;
+    margin-bottom: 15px;
+    position: static;
+    padding: 15px;
+  }
+  
+  .main-game {
+    padding-left: 0;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: auto;
+  }
+  
+  .main-game h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .main-game > * {
+    transform: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .sidebar-section {
+    margin-bottom: 15px;
+  }
+  
+  .round-buttons, .mode-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .round-buttons button, .mode-buttons button {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+  }
+  
+  .board {
+    grid-template-columns: 80px 80px 80px;
+    grid-template-rows: 80px 80px 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-container {
+    padding: 15px;
+  }
+  
+  
+  .board {
+    grid-template-columns: 70px 70px 70px;
+    grid-template-rows: 70px 70px 70px;
+  }
+  
+  .game-container h1 {
+    font-size: 2em;
+    margin-bottom: 15px;
+  }
+}
+
+/* Round Selector */
+.round-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 15px 0;
+  justify-content: center;
+}
+
+.round-selector label {
+  font-weight: bold;
+  color: #5468ff;
+}
+
+.round-selector button {
+  padding: 8px 16px;
+  font-size: 0.9em;
+  border: 2px solid #5468ff;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.round-selector button:hover {
+  background-color: #5468ff;
+}
+
+.round-selector button.active {
+  background-color: #5468ff;
+  font-weight: bold;
+}
+
+/* Match Status */
+.match-status {
+  background-color: #2a2f3a;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+  border: 2px solid #0074a6;
+}
+
+.round-info h3 {
+  margin: 0 0 15px 0;
+  text-align: center;
+  color: #5468ff;
+  font-size: 1.3em;
+}
+
+.scoreboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-size: 1.2em;
+}
+
+.score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.player-name {
+  font-size: 0.9em;
+  color: #ccc;
+}
+
+.score-number {
+  font-size: 2em;
+  font-weight: bold;
+  color: #0074a6;
+}
+
+.score-separator {
+  font-size: 2em;
+  color: white;
+  font-weight: bold;
+}
+
+/* Match Winner */
+.match-winner {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 30px;
+  margin: 20px 0;
+  border-radius: 15px;
+  text-align: center;
+  animation: celebration 0.6s ease-in-out;
+}
+
+.match-winner h2 {
+  margin: 0 0 15px 0;
+  font-size: 2em;
+  color: gold;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.match-winner p {
+  font-size: 1.3em;
+  margin: 15px 0;
+  color: white;
+}
+
+.new-match-button {
+  padding: 15px 30px;
+  font-size: 1.2em;
+  background-color: #0074a6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.new-match-button:hover {
+  background-color: #005a82;
+}
+
+/* Round Result */
+.round-result {
+  background-color: #2a2f3a;
+  padding: 25px;
+  margin: 20px 0;
+  border-radius: 10px;
+  text-align: center;
+  border: 2px solid #5468ff;
+}
+
+.round-result h3 {
+  margin: 0 0 15px 0;
+  color: #5468ff;
+}
+
+.round-result p {
+  margin: 15px 0;
+  font-size: 1.1em;
+}
+
+.next-round-button {
+  padding: 12px 24px;
+  font-size: 1.1em;
+  background-color: #5468ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.next-round-button:hover {
+  background-color: #4056d4;
+}
+
+/* Animation for match winner */
+@keyframes celebration {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
