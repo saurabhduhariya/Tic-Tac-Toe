@@ -15,24 +15,22 @@ const MatchWinner = ({
 
   const getWinnerText = () => {
     if (matchWinner === 'draw') {
-      return "It's a Draw!";
+      return "The match ended in a draw!";
     } else if (matchWinner === PLAYER_X) {
-      return gameMode === 'ai' ? 'You Win!' : 'Player X Wins!';
+      return gameMode === 'ai' ? 'You won the match!' : 'Player X won the match!';
     } else {
-      return gameMode === 'ai' ? 'AI Wins!' : 'Player O Wins!';
+      return gameMode === 'ai' ? 'AI won the match!' : 'Player O won the match!';
     }
   };
 
   return (
-    <div className="match-winner">
-      <h2>🎉 {totalRounds === 1 ? 'GAME OVER' : 'MATCH WINNER'} 🎉</h2>
+    <div className="round-result">
+      <h3>{totalRounds === 1 ? 'Game Complete!' : 'Match Complete!'}</h3>
       <p>{getWinnerText()}</p>
       {totalRounds > 1 && (
-        <div className="final-score">
-          <p>Final Score: {playerXWins} - {playerOWins}</p>
-        </div>
+        <p>Final Score: {playerXWins} - {playerOWins}</p>
       )}
-      <button onClick={onMatchReset} className="new-match-button">
+      <button onClick={onMatchReset} className="next-round-button">
         {totalRounds === 1 ? 'New Game' : 'New Match'}
       </button>
     </div>

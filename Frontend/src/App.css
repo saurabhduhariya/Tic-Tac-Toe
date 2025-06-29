@@ -393,61 +393,6 @@ h1 {
   margin: 20px 0;
 }
 
-/* Match Winner - Redesigned */
-.match-winner {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 30px;
-  margin: 20px 0;
-  border-radius: 15px;
-  text-align: center;
-  animation: celebration 0.6s ease-in-out;
-  max-width: 500px;
-  width: 100%;
-}
-
-.match-winner h2 {
-  margin: 0 0 15px 0;
-  font-size: 2em;
-  color: gold;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-}
-
-.match-winner p {
-  font-size: 1.3em;
-  margin: 15px 0;
-  color: white;
-}
-
-.final-score {
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 10px;
-  border-radius: 8px;
-  margin: 15px 0;
-}
-
-.final-score p {
-  margin: 0;
-  font-size: 1.1em;
-  color: #ffd700;
-}
-
-.new-match-button {
-  padding: 15px 30px;
-  font-size: 1.2em;
-  background-color: #0074a6;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 15px;
-  transition: all 0.3s ease;
-}
-
-.new-match-button:hover {
-  background-color: #005a82;
-  transform: translateY(-2px);
-}
-
 /* Round Result - Redesigned */
 .round-result {
   background-color: #2a2f3a;
@@ -640,45 +585,6 @@ h1 {
   font-weight: bold;
 }
 
-/* Match Winner */
-.match-winner {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 30px;
-  margin: 20px 0;
-  border-radius: 15px;
-  text-align: center;
-  animation: celebration 0.6s ease-in-out;
-}
-
-.match-winner h2 {
-  margin: 0 0 15px 0;
-  font-size: 2em;
-  color: gold;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-}
-
-.match-winner p {
-  font-size: 1.3em;
-  margin: 15px 0;
-  color: white;
-}
-
-.new-match-button {
-  padding: 15px 30px;
-  font-size: 1.2em;
-  background-color: #0074a6;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 15px;
-  transition: background-color 0.3s ease;
-}
-
-.new-match-button:hover {
-  background-color: #005a82;
-}
-
 /* Round Result */
 .round-result {
   background-color: #2a2f3a;
@@ -713,11 +619,4 @@ h1 {
 
 .next-round-button:hover {
   background-color: #4056d4;
-}
-
-/* Animation for match winner */
-@keyframes celebration {
-  0% { transform: scale(0.8); opacity: 0; }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); opacity: 1; }
 }

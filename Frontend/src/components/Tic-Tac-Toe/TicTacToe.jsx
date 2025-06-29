@@ -241,11 +241,11 @@ function TicTacToe() {
           )}
           <RoundResult
             showRoundResult={showRoundResult}
-            matchWinner={matchWinner}
-            currentRound={currentRound}
-            totalRounds={totalRounds}
+           matchWinner={matchWinner}
+           currentRound={currentRound}
+           totalRounds={totalRounds}
             gameState={gameState}
-            gameMode={gameMode}
+           gameMode={gameMode}
             onNextRound={handleNextRound}
           />
 
