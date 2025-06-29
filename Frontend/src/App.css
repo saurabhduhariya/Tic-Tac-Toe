@@ -432,6 +432,60 @@ h1 {
   transform: translateY(-2px);
 }
 
+/* Login Link Component */
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.login-link-container {
+  width: 100%;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.login-link {
+  color: #5468ff;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.login-link:hover {
+  color: #0074a6;
+  text-decoration: underline;
+}
+
+/* User Info Display */
+.user-info-simple {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.welcome-text {
+  font-size: 0.9em;
+  color: #5468ff;
+  font-weight: 600;
+}
+
+.logout-link {
+  color: #ff6b6b;
+  text-decoration: none;
+  font-size: 0.8em;
+  transition: color 0.3s ease;
+}
+
+.logout-link:hover {
+  color: #ff5252;
+  text-decoration: underline;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .game-layout {

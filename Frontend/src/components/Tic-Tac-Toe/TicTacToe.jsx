@@ -7,6 +7,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import GameStatus from "../Game/GameStatus";
 import RoundResult from "../Game/RoundResult";
 import MatchWinner from "../Game/MatchWinner";
+import LoginLink from "../Auth/LoginLink";
 import { 
   PLAYER_X, 
   PLAYER_O, 
@@ -197,22 +198,25 @@ function TicTacToe() {
 
   return (
     <div className="game-container">
-      <div className="game-layout">
-        <Sidebar
-          totalRounds={totalRounds}
-          onRoundChange={handleRoundChange}
-          showCustomInput={showCustomInput}
-          onToggleCustomInput={toggleCustomInput}
-          customRounds={customRounds}
-          onCustomRoundsChange={setCustomRounds}
-          onApplyCustomRounds={handleCustomRounds}
-          gameMode={gameMode}
-          onGameModeChange={handleGameModeChange}
-          currentRound={currentRound}
-          playerXWins={playerXWins}
-          playerOWins={playerOWins}
-          onBackToSingleGame={() => handleRoundChange(1)}
-        />
+      <div className="game-layout">  
+        <div className="sidebar-container">
+          <LoginLink /> 
+          <Sidebar
+            totalRounds={totalRounds}
+            onRoundChange={handleRoundChange}
+            showCustomInput={showCustomInput}
+            onToggleCustomInput={toggleCustomInput}
+            customRounds={customRounds}
+            onCustomRoundsChange={setCustomRounds}
+            onApplyCustomRounds={handleCustomRounds}
+            gameMode={gameMode}
+            onGameModeChange={handleGameModeChange}
+            currentRound={currentRound}
+            playerXWins={playerXWins}
+            playerOWins={playerOWins}
+            onBackToSingleGame={() => handleRoundChange(1)}
+          />
+        </div>
 
         <div className="main-game">
           <h1>Tic Tac Toe</h1>
