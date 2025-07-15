@@ -21,7 +21,7 @@ const Sidebar = ({
   onBackToSingleGame
 }) => {
   return (
-    <div className="sidebar">
+    <div className="w-70 flex-shrink-0 bg-gray-700 rounded-2xl p-5 border-2 border-cyan-600 h-fit mt-[5%] self-start">
       {totalRounds === 1 && (
         <MatchTypeSelector
           totalRounds={totalRounds}

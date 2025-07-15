@@ -197,9 +197,9 @@ function TicTacToe() {
 
 
   return (
-    <div className="game-container">
-      <div className="game-layout">  
-        <div className="sidebar-container">
+    <div className="w-full bg-gray-800 text-white m-0 p-0 font-sans min-h-screen">
+      <div className="flex gap-5 min-h-[calc(100vh-140px)] items-start mt-5 p-5 box-border">  
+        <div className="w-70 flex-shrink-0">
           <LoginLink /> 
           <Sidebar
             totalRounds={totalRounds}
@@ -218,8 +218,8 @@ function TicTacToe() {
           />
         </div>
 
-        <div className="main-game">
-          <h1>Tic Tac Toe</h1>
+        <div className="flex-1 flex flex-col items-center justify-start min-w-0 pl-5 pt-5 min-h-[calc(100vh-100px)]">
+          <h1 className="text-center mb-10 mt-0 text-blue-500 text-4xl leading-tight font-bold">Tic Tac Toe</h1>
           
           <GameStatus
             gameState={gameState}

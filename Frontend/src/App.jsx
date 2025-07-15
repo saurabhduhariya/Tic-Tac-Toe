@@ -1,5 +1,4 @@
 import React from 'react'
-import './App.css'
 import TicTacToe from './components/Tic-Tac-Toe/TicTacToe'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'

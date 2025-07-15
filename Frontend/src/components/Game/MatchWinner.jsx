@@ -24,13 +24,13 @@ const MatchWinner = ({
   };
 
   return (
-    <div className="round-result">
-      <h3>{totalRounds === 1 ? 'Game Complete!' : 'Match Complete!'}</h3>
-      <p>{getWinnerText()}</p>
+    <div className="bg-gray-700 p-6 my-5 rounded-xl text-center border-2 border-blue-500 max-w-lg w-full">
+      <h3 className="m-0 mb-4 text-blue-500">{totalRounds === 1 ? 'Game Complete!' : 'Match Complete!'}</h3>
+      <p className="my-4 text-lg">{getWinnerText()}</p>
       {totalRounds > 1 && (
-        <p>Final Score: {playerXWins} - {playerOWins}</p>
+        <p className="my-4 text-lg">Final Score: {playerXWins} - {playerOWins}</p>
       )}
-      <button onClick={onMatchReset} className="next-round-button">
+      <button onClick={onMatchReset} className="py-3 px-6 text-lg bg-blue-500 text-white border-none rounded-md cursor-pointer mt-4 transition-all duration-300 hover:bg-blue-600 hover:-translate-y-0.5">
         {totalRounds === 1 ? 'New Game' : 'New Match'}
       </button>
     </div>
