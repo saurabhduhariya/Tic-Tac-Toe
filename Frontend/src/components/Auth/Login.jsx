@@ -21,7 +21,7 @@ const Login = ({ onClose, onSwitchToSignup, onLoginSuccess }) => {
     }
 
     try {
-      const url = 'http://localhost:8080/auth/login';
+      const url = 'https://tic-tac-toe-ten-brown-99.vercel.app/auth/login';
       const response = await fetch(url, {
         method: 'POST',
         headers: {

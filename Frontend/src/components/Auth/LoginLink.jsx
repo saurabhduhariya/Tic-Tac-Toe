@@ -10,7 +10,6 @@ const LoginLink = () => {
   const [username, setUsername] = useState('');
 
   useEffect(() => {
-    // Check authentication status on component mount
     if (isAuthenticated()) {
       setIsLoggedIn(true);
       setUsername(getLoggedInUser());
