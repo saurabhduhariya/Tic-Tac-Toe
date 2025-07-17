@@ -6,8 +6,36 @@ const MatchProgress = ({
   playerXWins, 
   playerOWins, 
   gameMode,
-  onBackToSingleGame 
+  onBackToSingleGame,
+  isMobile = false
 }) => {
+  if (isMobile) {
+    return (
+      <div className="mb-4">
+        <div className="mb-3 p-3 bg-gray-700 rounded-xl border-2 border-cyan-600">
+          <div className="text-center text-blue-500 text-sm font-semibold mb-3">Round {currentRound} of {totalRounds}</div>
+          <div className="flex gap-6 justify-center">
+            <div className="text-center">
+              <div className="text-xs text-gray-300 mb-1">{gameMode === 'ai' ? 'You (X)' : 'Player X'}</div>
+              <div className="text-xl font-bold text-cyan-600">{playerXWins}</div>
+            </div>
+            <div className="text-center">
+              <div className="text-xs text-gray-300 mb-1">{gameMode === 'ai' ? 'AI (O)' : 'Player O'}</div>
+              <div className="text-xl font-bold text-cyan-600">{playerOWins}</div>
+            </div>
+          </div>
+        </div>
+        
+        <button 
+          onClick={onBackToSingleGame}
+          className="w-full p-2.5 text-sm border-2 border-cyan-600 bg-transparent text-white cursor-pointer rounded-xl font-semibold transition-all duration-300 hover:bg-cyan-600 hover:shadow-[0_2px_10px_rgba(6,182,212,0.3)]"
+        >
+          Back to Single Game
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="mb-5">
       <h3 className="m-0 mb-4 text-blue-500 text-xl border-b-2 border-cyan-600 pb-2">Match Progress</h3>

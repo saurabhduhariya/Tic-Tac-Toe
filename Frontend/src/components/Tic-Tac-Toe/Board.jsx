@@ -5,7 +5,7 @@ import GameOver from "./GameOver";
 
 function Board({ tiles, onTileClick, turn ,strikeClass }) {
   return (
-    <div className="grid grid-cols-3 grid-rows-3 cursor-pointer relative w-[300px] h-[300px]">
+    <div className="grid grid-cols-3 grid-rows-3 cursor-pointer relative w-[300px] h-[300px] sm:w-[280px] sm:h-[280px] lg:w-[300px] lg:h-[300px]">
       <Tile
         turn = {turn}
         onClick={() => onTileClick(0)}

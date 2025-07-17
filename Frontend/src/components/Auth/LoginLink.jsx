@@ -53,14 +53,14 @@ const LoginLink = () => {
 
   return (
     <>
-      <div className="w-full mb-4 text-center">
+      <div className="w-full mb-2 lg:mb-4 text-center">
         {!isLoggedIn ? (
-          <a href="#" onClick={handleLoginClick} className="text-blue-500 no-underline text-lg font-semibold transition-colors duration-300 hover:text-cyan-600 hover:underline">
+          <a href="#" onClick={handleLoginClick} className="text-blue-500 no-underline text-base lg:text-lg font-semibold transition-colors duration-300 hover:text-cyan-600 hover:underline">
             Login
           </a>
         ) : (
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-sm text-blue-500 font-semibold">👋 {username}</span>
+          <div className="flex flex-col items-center gap-1 lg:gap-2">
+            <span className="text-xs lg:text-sm text-blue-500 font-semibold">👋 {username}</span>
             <a href="#" onClick={handleLogout} className="text-red-400 no-underline text-xs transition-colors duration-300 hover:text-red-300 hover:underline">
               Logout
             </a>

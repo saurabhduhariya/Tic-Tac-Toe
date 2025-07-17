@@ -54,12 +54,12 @@ const Signup = ({ onClose, onSwitchToLogin }) => {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex justify-center items-center z-50 animate-fadeIn">
-      <div className="relative w-full max-w-md bg-gray-700 py-10 px-9 rounded-3xl shadow-2xl border-2 border-blue-500 animate-slideUp">
-        <button className="absolute top-4 right-5 bg-none border-none text-3xl text-gray-300 cursor-pointer transition-colors duration-300 hover:text-red-400" onClick={onClose}>
+    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex justify-center items-center z-50 animate-fadeIn px-4">
+      <div className="relative w-full max-w-md bg-gray-700 py-8 lg:py-10 px-6 lg:px-9 rounded-3xl shadow-2xl border-2 border-blue-500 animate-slideUp">
+        <button className="absolute top-3 lg:top-4 right-4 lg:right-5 bg-none border-none text-2xl lg:text-3xl text-gray-300 cursor-pointer transition-colors duration-300 hover:text-red-400" onClick={onClose}>
           ×
         </button>
-        <h2 className="text-center text-3xl mb-6 text-blue-500 font-bold">Sign Up</h2>
+        <h2 className="text-center text-2xl lg:text-3xl mb-4 lg:mb-6 text-blue-500 font-bold">Sign Up</h2>
         <form onSubmit={handleSignup}>
           <div className="flex flex-col mb-5">
             <input

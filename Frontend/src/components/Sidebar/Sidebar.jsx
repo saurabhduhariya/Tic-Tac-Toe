@@ -18,10 +18,11 @@ const Sidebar = ({
   currentRound,
   playerXWins,
   playerOWins,
-  onBackToSingleGame
+  onBackToSingleGame,
+  isMobile = false
 }) => {
   return (
-    <div className="w-70 flex-shrink-0 bg-gray-700 rounded-2xl p-5 border-2 border-cyan-600 h-fit mt-[5%] self-start">
+    <div className="w-full lg:w-70 lg:flex-shrink-0 bg-gray-700 rounded-2xl p-3 lg:p-5 border-2 border-cyan-600 h-fit lg:mt-[5%] lg:self-start">
       {totalRounds === 1 && (
         <MatchTypeSelector
           totalRounds={totalRounds}
@@ -31,6 +32,7 @@ const Sidebar = ({
           customRounds={customRounds}
           onCustomRoundsChange={onCustomRoundsChange}
           onApplyCustomRounds={onApplyCustomRounds}
+          isMobile={isMobile}
         />
       )}
 
@@ -42,12 +44,14 @@ const Sidebar = ({
           playerOWins={playerOWins}
           gameMode={gameMode}
           onBackToSingleGame={onBackToSingleGame}
+          isMobile={isMobile}
         />
       )}
 
       <GameModeSelector
         gameMode={gameMode}
         onGameModeChange={onGameModeChange}
+        isMobile={isMobile}
       />
     </div>
   );

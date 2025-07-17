@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Board from "./Board";
 import GameState from "./GameState";
-import GameOver from "./GameOver";
-import Reset from "./Reset";
 import Sidebar from "../Sidebar/Sidebar";
 import GameStatus from "../Game/GameStatus";
 import RoundResult from "../Game/RoundResult";
 import MatchWinner from "../Game/MatchWinner";
 import LoginLink from "../Auth/LoginLink";
+import MatchTypeSelector from "../Sidebar/MatchTypeSelector";
+import GameModeSelector from "../Sidebar/GameModeSelector";
+import MatchProgress from "../Sidebar/MatchProgress";
 import { 
   PLAYER_X, 
   PLAYER_O, 
@@ -198,7 +199,8 @@ function TicTacToe() {
 
   return (
     <div className="w-full bg-gray-800 text-white m-0 p-0 font-sans min-h-screen">
-      <div className="flex gap-5 min-h-[calc(100vh-140px)] items-start mt-5 p-5 box-border">  
+      {/* Desktop Layout */}
+      <div className="hidden lg:flex gap-5 min-h-[calc(100vh-140px)] items-start mt-5 p-5 box-border">  
         <div className="w-70 flex-shrink-0">
           <LoginLink /> 
           <Sidebar
@@ -235,14 +237,6 @@ function TicTacToe() {
             onTileClick={handleTileClick}
             strikeClass={strikeClass}
           />
-          
-          {!showRoundResult && !matchWinner && (
-            <GameOver gameState={gameState} gameMode={gameMode}></GameOver>
-          )}
-          
-          {!showRoundResult && !matchWinner && (
-            <Reset gameState={gameState} onReset={handleReset} />
-          )}
           <RoundResult
             showRoundResult={showRoundResult}
            matchWinner={matchWinner}
@@ -262,6 +256,93 @@ function TicTacToe() {
             onMatchReset={handleMatchReset}
           />
         </div>
+      </div>
+
+      {/* Mobile Layout */}
+      <div className="lg:hidden flex flex-col min-h-screen p-3">
+        {/* Header */}
+        <div className="text-center mb-4">
+          <h1 className="text-blue-500 text-2xl sm:text-3xl font-bold mb-2">Tic Tac Toe</h1>
+          <LoginLink />
+        </div>
+
+        {/* Game Controls Above Board */}
+        <div className="mb-4">
+          {/* Game Mode Selector - Single Line */}
+          <GameModeSelector
+            gameMode={gameMode}
+            onGameModeChange={handleGameModeChange}
+            isMobile={true}
+          />
+
+          {/* Match Type Selector - Dropdown */}
+          {totalRounds === 1 && (
+            <MatchTypeSelector
+              totalRounds={totalRounds}
+              onRoundChange={handleRoundChange}
+              showCustomInput={showCustomInput}
+              onToggleCustomInput={toggleCustomInput}
+              customRounds={customRounds}
+              onCustomRoundsChange={setCustomRounds}
+              onApplyCustomRounds={handleCustomRounds}
+              isMobile={true}
+            />
+          )}
+
+          {/* Match Progress for Multi-Round Games */}
+          {totalRounds > 1 && (
+            <MatchProgress
+              currentRound={currentRound}
+              totalRounds={totalRounds}
+              playerXWins={playerXWins}
+              playerOWins={playerOWins}
+              gameMode={gameMode}
+              onBackToSingleGame={() => handleRoundChange(1)}
+              isMobile={true}
+            />
+          )}
+        </div>
+
+        {/* Game Status */}
+        <div className="mb-4">
+          <GameStatus
+            gameState={gameState}
+            gameMode={gameMode}
+            turn={turn}
+            showRoundResult={showRoundResult}
+            matchWinner={matchWinner}
+          />
+        </div>
+
+        {/* Game Board */}
+        <div className="flex justify-center mb-4">
+          <Board
+            turn={turn}
+            tiles={tiles}
+            onTileClick={handleTileClick}
+            strikeClass={strikeClass}
+          />
+        </div>
+
+        {/* Modals */}
+        <RoundResult
+          showRoundResult={showRoundResult}
+         matchWinner={matchWinner}
+         currentRound={currentRound}
+         totalRounds={totalRounds}
+          gameState={gameState}
+         gameMode={gameMode}
+          onNextRound={handleNextRound}
+        />
+
+        <MatchWinner
+          matchWinner={matchWinner}
+          totalRounds={totalRounds}
+          gameMode={gameMode}
+          playerXWins={playerXWins}
+          playerOWins={playerOWins}
+          onMatchReset={handleMatchReset}
+        />
       </div>
     </div>
   );
