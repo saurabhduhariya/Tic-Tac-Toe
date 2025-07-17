@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Tic Tac Toe Banner](https://via.placeholder.com/800x200/2563eb/ffffff?text=🎮+Advanced+Tic+Tac+Toe)
-
 [![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Visit_App-2563eb?style=for-the-badge)](https://tic-tac-toe-ui-virid.vercel.app/)
 [![GitHub](https://img.shields.io/badge/🐙_GitHub-Source_Code-181717?style=for-the-badge&logo=github)](https://github.com/saurabhduhariya)
 [![LinkedIn](https://img.shields.io/badge/💼_LinkedIn-Connect-0077b5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/saurabh-prajapat-7638a5320/)
