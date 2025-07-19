@@ -1,30 +1,30 @@
+// src/components/Sidebar/GameModeSelector.jsx
 import React from 'react';
+import { FaRobot, FaUserFriends } from 'react-icons/fa';
 
 const GameModeSelector = ({ gameMode, onGameModeChange, isMobile = false }) => {
   if (isMobile) {
     return (
-      <div className="mb-4">
-        <label className="block text-blue-500 text-sm font-semibold mb-2">Game Mode</label>
-        <div className="flex gap-2">
+      <div className="mb-5">
+        <label className="block text-cyan-400 text-sm font-bold mb-2 tracking-wide">GAME MODE</label>
+        <div className="flex gap-3">
           <button 
             onClick={() => onGameModeChange('ai')}
-            className={`flex-1 p-3 text-sm border-2 border-blue-500 bg-transparent text-white cursor-pointer rounded-xl font-semibold transition-all duration-300 ${
-              gameMode === 'ai' 
-                ? 'bg-gradient-to-r from-blue-500 to-cyan-600 font-bold shadow-[0_4px_15px_rgba(84,104,255,0.4)] border-blue-400' 
-                : 'hover:bg-blue-500 hover:shadow-[0_2px_10px_rgba(84,104,255,0.3)]'
-            }`}
+            className={`flex-1 p-3 text-sm rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg
+              ${gameMode === 'ai' 
+                ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white border border-cyan-400 glow-cyan' 
+                : 'bg-gray-800 text-gray-300 border border-gray-600 hover:bg-gray-700'}`}
           >
-            vs AI
+            <FaRobot className="text-lg" /> vs AI
           </button>
           <button 
             onClick={() => onGameModeChange('human')}
-            className={`flex-1 p-3 text-sm border-2 border-blue-500 bg-transparent text-white cursor-pointer rounded-xl font-semibold transition-all duration-300 ${
-              gameMode === 'human' 
-                ? 'bg-gradient-to-r from-blue-500 to-cyan-600 font-bold shadow-[0_4px_15px_rgba(84,104,255,0.4)] border-blue-400' 
-                : 'hover:bg-blue-500 hover:shadow-[0_2px_10px_rgba(84,104,255,0.3)]'
-            }`}
+            className={`flex-1 p-3 text-sm rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg
+              ${gameMode === 'human' 
+                ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white border border-cyan-400 glow-cyan' 
+                : 'bg-gray-800 text-gray-300 border border-gray-600 hover:bg-gray-700'}`}
           >
-            vs Human
+            <FaUserFriends className="text-lg" /> vs Human
           </button>
         </div>
       </div>
@@ -32,24 +32,30 @@ const GameModeSelector = ({ gameMode, onGameModeChange, isMobile = false }) => {
   }
 
   return (
-    <div className="mb-3 lg:mb-5">
-      <h3 className="m-0 mb-3 lg:mb-4 text-blue-500 text-lg lg:text-xl border-b-2 border-cyan-600 pb-2">Game Mode</h3>
-      <div className="flex flex-col gap-2 lg:gap-2.5">
+    <div className="mb-5">
+      <h3 className="m-0 mb-3 text-cyan-400 text-lg font-bold border-b border-cyan-600 pb-2 tracking-wider">GAME MODE</h3>
+      <div className="flex flex-col gap-3">
         <button 
           onClick={() => onGameModeChange('ai')}
-          className={`p-2.5 lg:p-3 text-sm lg:text-base border-2 border-blue-500 bg-transparent text-white cursor-pointer rounded-lg transition-all duration-300 hover:bg-blue-500 lg:hover:translate-x-1 ${
-            gameMode === 'ai' ? 'bg-blue-500 font-bold shadow-[0_0_10px_rgba(84,104,255,0.5)]' : ''
-          }`}
+          className={`p-3 text-sm border rounded-xl transition-all duration-300 text-center font-medium
+            ${gameMode === 'ai' 
+              ? 'bg-gradient-to-r from-cyan-700 to-blue-700 text-white border-cyan-500 glow-cyan' 
+              : 'bg-gray-800 text-gray-300 border-gray-600 hover:bg-gray-700'}`}
         >
-          vs AI
+          <div className="flex items-center justify-center gap-2">
+            <FaRobot /> vs AI
+          </div>
         </button>
         <button 
           onClick={() => onGameModeChange('human')}
-          className={`p-2.5 lg:p-3 text-sm lg:text-base border-2 border-blue-500 bg-transparent text-white cursor-pointer rounded-lg transition-all duration-300 hover:bg-blue-500 lg:hover:translate-x-1 ${
-            gameMode === 'human' ? 'bg-blue-500 font-bold shadow-[0_0_10px_rgba(84,104,255,0.5)]' : ''
-          }`}
+          className={`p-3 text-sm border rounded-xl transition-all duration-300 text-center font-medium
+            ${gameMode === 'human' 
+              ? 'bg-gradient-to-r from-cyan-700 to-blue-700 text-white border-cyan-500 glow-cyan' 
+              : 'bg-gray-800 text-gray-300 border-gray-600 hover:bg-gray-700'}`}
         >
-          vs Human
+          <div className="flex items-center justify-center gap-2">
+            <FaUserFriends /> vs Human
+          </div>
         </button>
       </div>
     </div>

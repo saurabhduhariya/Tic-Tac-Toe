@@ -1,4 +1,6 @@
+// src/components/Sidebar/MatchTypeSelector.jsx
 import React, { useState, useEffect, useRef } from 'react';
+import { FaCrown, FaTrophy, FaMedal, FaStar, FaCog } from 'react-icons/fa';
 
 const MatchTypeSelector = ({ 
   totalRounds, 
@@ -13,7 +15,6 @@ const MatchTypeSelector = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -46,18 +47,29 @@ const MatchTypeSelector = ({
     setIsDropdownOpen(false);
   };
 
+  const getIcon = (type) => {
+    switch(type) {
+      case 1: return <FaStar className="text-yellow-400" />;
+      case 3: return <FaMedal className="text-amber-400" />;
+      case 5: return <FaTrophy className="text-amber-500" />;
+      case 7: return <FaCrown className="text-purple-400" />;
+      default: return <FaCog className="text-cyan-400" />;
+    }
+  };
+
   if (isMobile) {
     return (
-      <div className="mb-4 relative" ref={dropdownRef}>
-        <label className="block text-blue-500 text-sm font-semibold mb-2">Match Type</label>
+      <div className="mb-5 relative" ref={dropdownRef}>
+        <label className="block text-cyan-400 text-sm font-bold mb-2 tracking-wide">MATCH TYPE</label>
         
-        {/* Custom Dropdown */}
         <div className="relative">
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="w-full p-3 bg-gray-700 border-2 border-cyan-600 text-white rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:shadow-[0_0_10px_rgba(84,104,255,0.3)] transition-all duration-300 hover:border-blue-400 flex justify-between items-center"
+            className="w-full p-3 bg-gray-800 border border-gray-600 text-gray-300 rounded-xl text-sm focus:outline-none transition-all duration-300 hover:bg-gray-700 flex justify-between items-center"
           >
-            <span>{getMatchTypeLabel(totalRounds)}</span>
+            <span className="flex items-center gap-2">
+              {getIcon(totalRounds)} {getMatchTypeLabel(totalRounds)}
+            </span>
             <svg 
               className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`}
               fill="none" 
@@ -68,48 +80,28 @@ const MatchTypeSelector = ({
             </svg>
           </button>
           
-          {/* Dropdown Options */}
           {isDropdownOpen && (
-            <div className="absolute top-full left-0 right-0 mt-1 bg-gray-700 border-2 border-cyan-600 rounded-xl shadow-lg z-50 overflow-hidden">
-              <div 
-                onClick={() => handleOptionSelect(1)}
-                className={`p-3 text-sm text-white cursor-pointer transition-all duration-200 hover:bg-cyan-600 ${
-                  totalRounds === 1 ? 'bg-cyan-600 font-semibold' : ''
-                }`}
-              >
-                Single Game
-              </div>
-              <div 
-                onClick={() => handleOptionSelect(3)}
-                className={`p-3 text-sm text-white cursor-pointer transition-all duration-200 hover:bg-cyan-600 ${
-                  totalRounds === 3 ? 'bg-cyan-600 font-semibold' : ''
-                }`}
-              >
-                Best of 3
-              </div>
-              <div 
-                onClick={() => handleOptionSelect(5)}
-                className={`p-3 text-sm text-white cursor-pointer transition-all duration-200 hover:bg-cyan-600 ${
-                  totalRounds === 5 ? 'bg-cyan-600 font-semibold' : ''
-                }`}
-              >
-                Best of 5
-              </div>
-              <div 
-                onClick={() => handleOptionSelect(7)}
-                className={`p-3 text-sm text-white cursor-pointer transition-all duration-200 hover:bg-cyan-600 ${
-                  totalRounds === 7 ? 'bg-cyan-600 font-semibold' : ''
-                }`}
-              >
-                Best of 7
-              </div>
+            <div className="absolute top-full left-0 right-0 mt-1 bg-gray-800 border border-gray-600 rounded-xl shadow-lg z-50 overflow-hidden">
+              {[1, 3, 5, 7].map(rounds => (
+                <div 
+                  key={rounds}
+                  onClick={() => handleOptionSelect(rounds)}
+                  className={`p-3 text-sm cursor-pointer transition-all duration-200 flex items-center gap-2
+                    ${totalRounds === rounds 
+                      ? 'bg-cyan-900 text-cyan-400' 
+                      : 'text-gray-300 hover:bg-gray-700'}`}
+                >
+                  {getIcon(rounds)} {getMatchTypeLabel(rounds)}
+                </div>
+              ))}
               <div 
                 onClick={() => handleOptionSelect(-1)}
-                className={`p-3 text-sm text-white cursor-pointer transition-all duration-200 hover:bg-cyan-600 ${
-                  showCustomInput ? 'bg-cyan-600 font-semibold' : ''
-                }`}
+                className={`p-3 text-sm cursor-pointer transition-all duration-200 flex items-center gap-2
+                  ${showCustomInput 
+                    ? 'bg-cyan-900 text-cyan-400' 
+                    : 'text-gray-300 hover:bg-gray-700'}`}
               >
-                Custom
+                <FaCog className="text-cyan-400" /> Custom
               </div>
             </div>
           )}
@@ -124,11 +116,11 @@ const MatchTypeSelector = ({
               value={customRounds}
               onChange={(e) => onCustomRoundsChange(parseInt(e.target.value) || 1)}
               placeholder="Rounds"
-              className="flex-1 p-2.5 border-2 border-cyan-600 bg-gray-800 text-white rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:shadow-[0_0_10px_rgba(84,104,255,0.3)] transition-all duration-300"
+              className="flex-1 p-3 border border-gray-600 bg-gray-800 text-white rounded-xl text-sm focus:outline-none focus:border-cyan-500"
             />
             <button 
               onClick={onApplyCustomRounds} 
-              className="px-4 py-2.5 bg-gradient-to-r from-blue-500 to-cyan-600 text-white border-none rounded-xl text-sm font-semibold transition-all duration-300 hover:from-blue-600 hover:to-cyan-700 hover:shadow-[0_4px_15px_rgba(84,104,255,0.4)] hover:-translate-y-0.5"
+              className="px-4 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white border-none rounded-xl text-sm font-bold transition-all duration-300 hover:from-cyan-700 hover:to-blue-700"
             >
               Apply
             </button>
@@ -139,53 +131,35 @@ const MatchTypeSelector = ({
   }
 
   return (
-    <div className="mb-3 lg:mb-5">
-      <h3 className="m-0 mb-3 lg:mb-4 text-blue-500 text-lg lg:text-xl border-b-2 border-cyan-600 pb-2">Match Type</h3>
-      <div className="flex flex-col gap-2 lg:gap-2.5">
-        <button 
-          onClick={() => onRoundChange(1)}
-          className={`p-2.5 lg:p-3 text-sm lg:text-base border-2 border-cyan-600 bg-transparent text-white cursor-pointer rounded-lg transition-all duration-300 text-left hover:bg-cyan-600 lg:hover:translate-x-1 ${
-            totalRounds === 1 ? 'bg-cyan-600 font-bold shadow-[0_0_10px_rgba(0,116,166,0.5)]' : ''
-          }`}
-        >
-          Single Game
-        </button>
-        <button 
-          onClick={() => onRoundChange(3)}
-          className={`p-2.5 lg:p-3 text-sm lg:text-base border-2 border-cyan-600 bg-transparent text-white cursor-pointer rounded-lg transition-all duration-300 text-left hover:bg-cyan-600 lg:hover:translate-x-1 ${
-            totalRounds === 3 ? 'bg-cyan-600 font-bold shadow-[0_0_10px_rgba(0,116,166,0.5)]' : ''
-          }`}
-        >
-          Best of 3
-        </button>
-        <button 
-          onClick={() => onRoundChange(5)}
-          className={`p-2.5 lg:p-3 text-sm lg:text-base border-2 border-cyan-600 bg-transparent text-white cursor-pointer rounded-lg transition-all duration-300 text-left hover:bg-cyan-600 lg:hover:translate-x-1 ${
-            totalRounds === 5 ? 'bg-cyan-600 font-bold shadow-[0_0_10px_rgba(0,116,166,0.5)]' : ''
-          }`}
-        >
-          Best of 5
-        </button>
-        <button 
-          onClick={() => onRoundChange(7)}
-          className={`p-2.5 lg:p-3 text-sm lg:text-base border-2 border-cyan-600 bg-transparent text-white cursor-pointer rounded-lg transition-all duration-300 text-left hover:bg-cyan-600 lg:hover:translate-x-1 ${
-            totalRounds === 7 ? 'bg-cyan-600 font-bold shadow-[0_0_10px_rgba(0,116,166,0.5)]' : ''
-          }`}
-        >
-          Best of 7
-        </button>
+    <div className="mb-6">
+      <h3 className="m-0 mb-4 text-cyan-400 text-lg font-bold border-b border-cyan-600 pb-2 tracking-wider">MATCH TYPE</h3>
+      <div className="flex flex-col gap-3">
+        {[1, 3, 5, 7].map(rounds => (
+          <button 
+            key={rounds}
+            onClick={() => onRoundChange(rounds)}
+            className={`p-3 text-sm border rounded-xl transition-all duration-300 text-left flex items-center gap-3
+              ${totalRounds === rounds 
+                ? 'bg-gradient-to-r from-cyan-800 to-blue-800 text-white border-cyan-500 glow-cyan' 
+                : 'bg-gray-800 text-gray-300 border-gray-600 hover:bg-gray-700'}`}
+          >
+            <span className="text-xl">{getIcon(rounds)}</span>
+            <span>{getMatchTypeLabel(rounds)}</span>
+          </button>
+        ))}
         <button 
           onClick={onToggleCustomInput}
-          className={`p-2.5 lg:p-3 text-sm lg:text-base border-2 border-cyan-600 bg-transparent text-white cursor-pointer rounded-lg transition-all duration-300 text-left hover:bg-cyan-600 lg:hover:translate-x-1 ${
-            showCustomInput ? 'bg-cyan-600 font-bold shadow-[0_0_10px_rgba(0,116,166,0.5)]' : ''
-          }`}
+          className={`p-3 text-sm border rounded-xl transition-all duration-300 text-left flex items-center gap-3
+            ${showCustomInput 
+              ? 'bg-gradient-to-r from-cyan-800 to-blue-800 text-white border-cyan-500 glow-cyan' 
+              : 'bg-gray-800 text-gray-300 border-gray-600 hover:bg-gray-700'}`}
         >
-          Custom
+          <FaCog className="text-cyan-400 text-xl" /> Custom
         </button>
       </div>
       
       {showCustomInput && (
-        <div className="mt-4 flex flex-col gap-2.5">
+        <div className="mt-4 flex flex-col gap-3">
           <input 
             type="number" 
             min="1" 
@@ -193,10 +167,13 @@ const MatchTypeSelector = ({
             value={customRounds}
             onChange={(e) => onCustomRoundsChange(parseInt(e.target.value) || 1)}
             placeholder="Enter rounds"
-            className="p-2.5 border-2 border-cyan-600 bg-gray-800 text-white rounded text-base focus:outline-none focus:border-blue-500 focus:shadow-[0_0_5px_rgba(84,104,255,0.5)]"
+            className="p-3 border border-gray-600 bg-gray-800 text-white rounded text-sm focus:outline-none focus:border-cyan-500"
           />
-          <button onClick={onApplyCustomRounds} className="py-2 px-4 bg-blue-500 text-white border-none rounded cursor-pointer text-sm transition-colors duration-300 hover:bg-blue-600">
-            Apply
+          <button 
+            onClick={onApplyCustomRounds} 
+            className="py-2 px-4 bg-gradient-to-r from-cyan-600 to-blue-600 text-white border-none rounded cursor-pointer text-sm font-bold transition-colors duration-300 hover:from-cyan-700 hover:to-blue-700"
+          >
+            Apply Custom Rounds
           </button>
         </div>
       )}

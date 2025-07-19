@@ -6,9 +6,7 @@ import GameStatus from "../Game/GameStatus";
 import RoundResult from "../Game/RoundResult";
 import MatchWinner from "../Game/MatchWinner";
 import LoginLink from "../Auth/LoginLink";
-import MatchTypeSelector from "../Sidebar/MatchTypeSelector";
-import GameModeSelector from "../Sidebar/GameModeSelector";
-import MatchProgress from "../Sidebar/MatchProgress";
+import Reset from "./Reset";
 import { 
   PLAYER_X, 
   PLAYER_O, 
@@ -17,6 +15,7 @@ import {
   winningCombinations,
   getBestMove 
 } from "../AI/aiLogic";
+import { FaCog } from 'react-icons/fa';
 
 function checkWinner(tiles, setStrikeClass,setGameState){
   for(const { combo, strikeClass } of winningCombinations){
@@ -197,12 +196,18 @@ function TicTacToe() {
   }, [turn, gameMode, tiles, gameState]);
 
 
-  return (
-    <div className="w-full bg-gray-800 text-white m-0 p-0 font-sans min-h-screen">
+   return (
+    <div className="w-full text-white m-0 p-0 font-sans min-h-screen bg-gradient-to-br from-gray-900 to-gray-800">
       {/* Desktop Layout */}
-      <div className="hidden lg:flex gap-5 min-h-[calc(100vh-140px)] items-start mt-5 p-5 box-border">  
-        <div className="w-70 flex-shrink-0">
-          <LoginLink /> 
+      <div className="hidden lg:flex gap-6 min-h-[calc(100vh-140px)] items-start p-6 box-border">  
+        <div className="w-72 flex-shrink-0">
+          <div className="text-center mb-8">
+            <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 text-4xl font-bold mb-2 tracking-wider">
+              TIC TAC TOE
+            </h1>
+            <LoginLink />
+          </div>
+          
           <Sidebar
             totalRounds={totalRounds}
             onRoundChange={handleRoundChange}
@@ -220,9 +225,7 @@ function TicTacToe() {
           />
         </div>
 
-        <div className="flex-1 flex flex-col items-center justify-start min-w-0 pl-5 pt-5 min-h-[calc(100vh-100px)]">
-          <h1 className="text-center mb-10 mt-0 text-blue-500 text-4xl leading-tight font-bold">Tic Tac Toe</h1>
-          
+        <div className="flex-1 flex flex-col items-center justify-start min-w-0 pt-8 min-h-[calc(100vh-100px)]">
           <GameStatus
             gameState={gameState}
             gameMode={gameMode}
@@ -231,19 +234,22 @@ function TicTacToe() {
             matchWinner={matchWinner}
           />
 
-          <Board
-            turn={turn}
-            tiles={tiles}
-            onTileClick={handleTileClick}
-            strikeClass={strikeClass}
-          />
+          <div className="relative mb-6">
+            <Board
+              turn={turn}
+              tiles={tiles}
+              onTileClick={handleTileClick}
+              strikeClass={strikeClass}
+            />
+          </div>
+
           <RoundResult
             showRoundResult={showRoundResult}
-           matchWinner={matchWinner}
-           currentRound={currentRound}
-           totalRounds={totalRounds}
+            matchWinner={matchWinner}
+            currentRound={currentRound}
+            totalRounds={totalRounds}
             gameState={gameState}
-           gameMode={gameMode}
+            gameMode={gameMode}
             onNextRound={handleNextRound}
           />
 
@@ -255,95 +261,92 @@ function TicTacToe() {
             playerOWins={playerOWins}
             onMatchReset={handleMatchReset}
           />
+
+          {gameState !== GameState.inProgress && !showRoundResult && !matchWinner && (
+            <Reset gameState={gameState} onReset={handleReset} />
+          )}
         </div>
       </div>
 
       {/* Mobile Layout */}
-      <div className="lg:hidden flex flex-col min-h-screen p-3">
+      <div className="lg:hidden flex flex-col min-h-screen p-4">
         {/* Header */}
-        <div className="text-center mb-4">
-          <h1 className="text-blue-500 text-2xl sm:text-3xl font-bold mb-2">Tic Tac Toe</h1>
+        <div className="text-center mb-5">
+          <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 text-3xl font-bold mb-2 tracking-wider">
+            TIC TAC TOE
+          </h1>
           <LoginLink />
         </div>
 
-        {/* Game Controls Above Board */}
-        <div className="mb-4">
-          {/* Game Mode Selector - Single Line */}
-          <GameModeSelector
+        <div className="flex flex-col gap-5">
+          <Sidebar
+            totalRounds={totalRounds}
+            onRoundChange={handleRoundChange}
+            showCustomInput={showCustomInput}
+            onToggleCustomInput={toggleCustomInput}
+            customRounds={customRounds}
+            onCustomRoundsChange={setCustomRounds}
+            onApplyCustomRounds={handleCustomRounds}
             gameMode={gameMode}
             onGameModeChange={handleGameModeChange}
+            currentRound={currentRound}
+            playerXWins={playerXWins}
+            playerOWins={playerOWins}
+            onBackToSingleGame={() => handleRoundChange(1)}
             isMobile={true}
           />
 
-          {/* Match Type Selector - Dropdown */}
-          {totalRounds === 1 && (
-            <MatchTypeSelector
-              totalRounds={totalRounds}
-              onRoundChange={handleRoundChange}
-              showCustomInput={showCustomInput}
-              onToggleCustomInput={toggleCustomInput}
-              customRounds={customRounds}
-              onCustomRoundsChange={setCustomRounds}
-              onApplyCustomRounds={handleCustomRounds}
-              isMobile={true}
+          <div className="flex flex-col items-center">
+            <GameStatus
+              gameState={gameState}
+              gameMode={gameMode}
+              turn={turn}
+              showRoundResult={showRoundResult}
+              matchWinner={matchWinner}
             />
-          )}
 
-          {/* Match Progress for Multi-Round Games */}
-          {totalRounds > 1 && (
-            <MatchProgress
+            <div className="relative mb-5">
+              <Board
+                turn={turn}
+                tiles={tiles}
+                onTileClick={handleTileClick}
+                strikeClass={strikeClass}
+              />
+            </div>
+
+            <RoundResult
+              showRoundResult={showRoundResult}
+              matchWinner={matchWinner}
               currentRound={currentRound}
               totalRounds={totalRounds}
+              gameState={gameState}
+              gameMode={gameMode}
+              onNextRound={handleNextRound}
+            />
+
+            <MatchWinner
+              matchWinner={matchWinner}
+              totalRounds={totalRounds}
+              gameMode={gameMode}
               playerXWins={playerXWins}
               playerOWins={playerOWins}
-              gameMode={gameMode}
-              onBackToSingleGame={() => handleRoundChange(1)}
-              isMobile={true}
+              onMatchReset={handleMatchReset}
             />
-          )}
+
+            {gameState !== GameState.inProgress && !showRoundResult && !matchWinner && (
+              <Reset gameState={gameState} onReset={handleReset} />
+            )}
+          </div>
         </div>
-
-        {/* Game Status */}
-        <div className="mb-4">
-          <GameStatus
-            gameState={gameState}
-            gameMode={gameMode}
-            turn={turn}
-            showRoundResult={showRoundResult}
-            matchWinner={matchWinner}
-          />
-        </div>
-
-        {/* Game Board */}
-        <div className="flex justify-center mb-4">
-          <Board
-            turn={turn}
-            tiles={tiles}
-            onTileClick={handleTileClick}
-            strikeClass={strikeClass}
-          />
-        </div>
-
-        {/* Modals */}
-        <RoundResult
-          showRoundResult={showRoundResult}
-         matchWinner={matchWinner}
-         currentRound={currentRound}
-         totalRounds={totalRounds}
-          gameState={gameState}
-         gameMode={gameMode}
-          onNextRound={handleNextRound}
-        />
-
-        <MatchWinner
-          matchWinner={matchWinner}
-          totalRounds={totalRounds}
-          gameMode={gameMode}
-          playerXWins={playerXWins}
-          playerOWins={playerOWins}
-          onMatchReset={handleMatchReset}
-        />
       </div>
+      
+      {/* Settings Floating Button */}
+      <button 
+        onClick={() => setShowCustomInput(!showCustomInput)}
+        className="fixed bottom-5 right-5 p-3 bg-cyan-700 text-white rounded-full shadow-lg hover:bg-cyan-600 transition-all duration-300 z-10"
+      >
+        <FaCog className="text-xl" />
+      </button>
     </div>
   );
 }

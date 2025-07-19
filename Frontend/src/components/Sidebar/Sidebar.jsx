@@ -1,3 +1,4 @@
+// src/components/Sidebar/Sidebar.jsx
 import React from 'react';
 import MatchTypeSelector from './MatchTypeSelector';
 import GameModeSelector from './GameModeSelector';
@@ -22,7 +23,7 @@ const Sidebar = ({
   isMobile = false
 }) => {
   return (
-    <div className="w-full lg:w-70 lg:flex-shrink-0 bg-gray-700 rounded-2xl p-3 lg:p-5 border-2 border-cyan-600 h-fit lg:mt-[5%] lg:self-start">
+    <div className={`glass-effect w-full lg:w-72 lg:flex-shrink-0 rounded-2xl p-4 lg:p-5 border border-cyan-600 h-fit lg:mt-[5%] lg:self-start ${isMobile ? 'mb-5' : ''}`}>
       {totalRounds === 1 && (
         <MatchTypeSelector
           totalRounds={totalRounds}
