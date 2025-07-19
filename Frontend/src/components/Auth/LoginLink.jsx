@@ -75,7 +75,7 @@ const LoginLink = () => {
         {!isLoggedIn ? (
           <button 
             onClick={handleLoginClick}
-            className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white py-2 px-4 rounded-xl text-sm font-semibold transition-all duration-300 hover:from-cyan-700 hover:to-blue-700 hover:scale-[1.03] shadow-lg flex items-center"
+            className="flex items-center gap-2 bg-gray-800/50 border border-cyan-500/30 py-2 px-4 rounded-xl text-cyan-400 font-semibold transition-all duration-300 hover:bg-gray-800"
           >
             Login / Sign Up
           </button>
