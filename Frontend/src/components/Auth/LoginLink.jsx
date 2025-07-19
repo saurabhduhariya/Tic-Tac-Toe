@@ -1,24 +1,40 @@
-import React, { useState, useEffect } from 'react';
+// src/components/Auth/LoginLink.jsx
+import React, { useState, useEffect, useRef } from 'react';
 import Login from './Login';
 import Signup from './Signup';
 import { isAuthenticated, getLoggedInUser, logout } from '../../utils/authUtils';
+import { FaUserCircle, FaSignOutAlt, FaChevronDown } from 'react-icons/fa';
 
 const LoginLink = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     if (isAuthenticated()) {
       setIsLoggedIn(true);
       setUsername(getLoggedInUser());
     }
+    
+    // Handle clicks outside the dropdown
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const handleLoginClick = () => {
     if (isLoggedIn) {
-      handleLogout();
+      setShowDropdown(!showDropdown);
     } else {
       setShowLogin(true);
     }
@@ -28,12 +44,14 @@ const LoginLink = () => {
     setIsLoggedIn(true);
     setUsername(name);
     setShowLogin(false);
+    setShowDropdown(false);
   };
 
   const handleLogout = () => {
     logout();
     setIsLoggedIn(false);
     setUsername('');
+    setShowDropdown(false);
   };
 
   const handleCloseAuth = () => {
@@ -53,17 +71,35 @@ const LoginLink = () => {
 
   return (
     <>
-      <div className="w-full mb-2 lg:mb-4 text-center">
+      <div className="relative" ref={dropdownRef}>
         {!isLoggedIn ? (
-          <a href="#" onClick={handleLoginClick} className="text-blue-500 no-underline text-base lg:text-lg font-semibold transition-colors duration-300 hover:text-cyan-600 hover:underline">
-            Login
-          </a>
+          <button 
+            onClick={handleLoginClick}
+            className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white py-2 px-4 rounded-xl text-sm font-semibold transition-all duration-300 hover:from-cyan-700 hover:to-blue-700 hover:scale-[1.03] shadow-lg flex items-center"
+          >
+            Login / Sign Up
+          </button>
         ) : (
-          <div className="flex flex-col items-center gap-1 lg:gap-2">
-            <span className="text-xs lg:text-sm text-blue-500 font-semibold">👋 {username}</span>
-            <a href="#" onClick={handleLogout} className="text-red-400 no-underline text-xs transition-colors duration-300 hover:text-red-300 hover:underline">
-              Logout
-            </a>
+          <div className="relative">
+            <button 
+              onClick={handleLoginClick}
+              className="flex items-center gap-2 bg-gray-800/50 border border-cyan-500/30 py-2 px-4 rounded-xl text-cyan-400 font-semibold transition-all duration-300 hover:bg-gray-800"
+            >
+              <FaUserCircle className="text-lg" />
+              <span className="truncate max-w-[100px]">{username}</span>
+              <FaChevronDown className={`text-xs transition-transform ${showDropdown ? 'rotate-180' : ''}`} />
+            </button>
+            
+            {showDropdown && (
+              <div className="absolute top-full right-0 mt-2 glass-effect rounded-xl shadow-lg overflow-hidden z-10 animate-fadeIn min-w-full">
+                <button 
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 w-full py-2.5 px-4 text-sm text-red-400 hover:bg-gray-700 transition-colors duration-300"
+                >
+                  <FaSignOutAlt /> Logout
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

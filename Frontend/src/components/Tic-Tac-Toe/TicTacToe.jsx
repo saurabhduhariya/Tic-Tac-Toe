@@ -196,8 +196,13 @@ function TicTacToe() {
   }, [turn, gameMode, tiles, gameState]);
 
 
-   return (
+return (
     <div className="w-full text-white m-0 p-0 font-sans min-h-screen bg-gradient-to-br from-gray-900 to-gray-800">
+      {/* Desktop Login Button - Top Right */}
+      <div className="hidden lg:block fixed top-4 right-4 z-40">
+        <LoginLink />
+      </div>
+
       {/* Desktop Layout */}
       <div className="hidden lg:flex gap-6 min-h-[calc(100vh-140px)] items-start p-6 box-border">  
         <div className="w-72 flex-shrink-0">
@@ -205,7 +210,6 @@ function TicTacToe() {
             <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 text-4xl font-bold mb-2 tracking-wider">
               TIC TAC TOE
             </h1>
-            <LoginLink />
           </div>
           
           <Sidebar
@@ -270,12 +274,14 @@ function TicTacToe() {
 
       {/* Mobile Layout */}
       <div className="lg:hidden flex flex-col min-h-screen p-4">
-        {/* Header */}
-        <div className="text-center mb-5">
-          <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 text-3xl font-bold mb-2 tracking-wider">
+        {/* Header with Login Button on Right */}
+        <div className="flex justify-between items-center mb-5">
+          <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 text-3xl font-bold tracking-wider">
             TIC TAC TOE
           </h1>
-          <LoginLink />
+          <div className="ml-4">
+            <LoginLink />
+          </div>
         </div>
 
         <div className="flex flex-col gap-5">
