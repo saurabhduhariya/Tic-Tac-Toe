@@ -13,7 +13,8 @@ import {
   HUMAN_PLAYER, 
   AI_PLAYER, 
   winningCombinations,
-  getBestMove 
+  getBestMove,
+  getAIMove 
 } from "../AI/aiLogic";
 import { FaCog } from 'react-icons/fa';
 
@@ -48,6 +49,8 @@ function TicTacToe() {
   const [strikeClass, setStrikeClass] = useState();
   const [gameState, setGameState] = useState(GameState.inProgress);
   const [gameMode, setGameMode] = useState('ai'); 
+  const [aiDifficulty, setAiDifficulty] = useState('hard');
+  const [showAIDifficultySelector, setShowAIDifficultySelector] = useState(false);
   const [isAiTurn, setIsAiTurn] = useState(false);
 
   const [totalRounds, setTotalRounds] = useState(1); 
@@ -163,6 +166,14 @@ function TicTacToe() {
     handleMatchReset();
   };
 
+  const handleAIDifficultyChange = (difficulty) => {
+    setAiDifficulty(difficulty);
+  };
+
+  const handleToggleAIDifficultySelector = (show) => {
+    setShowAIDifficultySelector(show);
+  };
+
   useEffect(()=> {
     checkWinner(tiles,setStrikeClass,setGameState);
   },[tiles]);
@@ -181,7 +192,7 @@ function TicTacToe() {
     if (gameMode === 'ai' && turn === AI_PLAYER && gameState === GameState.inProgress) {
       setIsAiTurn(true);
       const timer = setTimeout(() => {
-        const bestMove = getBestMove([...tiles]);
+        const bestMove = getAIMove([...tiles], aiDifficulty);
         if (bestMove !== -1) {
           const newTiles = [...tiles];
           newTiles[bestMove] = AI_PLAYER;
@@ -193,7 +204,7 @@ function TicTacToe() {
       
       return () => clearTimeout(timer);
     }
-  }, [turn, gameMode, tiles, gameState]);
+  }, [turn, gameMode, tiles, gameState, aiDifficulty]);
 
 
 return (
@@ -222,6 +233,10 @@ return (
             onApplyCustomRounds={handleCustomRounds}
             gameMode={gameMode}
             onGameModeChange={handleGameModeChange}
+            aiDifficulty={aiDifficulty}
+            onAIDifficultyChange={handleAIDifficultyChange}
+            showAIDifficultySelector={showAIDifficultySelector}
+            onToggleAIDifficultySelector={handleToggleAIDifficultySelector}
             currentRound={currentRound}
             playerXWins={playerXWins}
             playerOWins={playerOWins}
@@ -295,6 +310,10 @@ return (
             onApplyCustomRounds={handleCustomRounds}
             gameMode={gameMode}
             onGameModeChange={handleGameModeChange}
+            aiDifficulty={aiDifficulty}
+            onAIDifficultyChange={handleAIDifficultyChange}
+            showAIDifficultySelector={showAIDifficultySelector}
+            onToggleAIDifficultySelector={handleToggleAIDifficultySelector}
             currentRound={currentRound}
             playerXWins={playerXWins}
             playerOWins={playerOWins}

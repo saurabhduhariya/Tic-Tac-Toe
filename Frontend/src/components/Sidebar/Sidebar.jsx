@@ -15,6 +15,10 @@ const Sidebar = ({
   
   gameMode,
   onGameModeChange,
+  aiDifficulty,
+  onAIDifficultyChange,
+  showAIDifficultySelector,
+  onToggleAIDifficultySelector,
   
   currentRound,
   playerXWins,
@@ -52,6 +56,10 @@ const Sidebar = ({
       <GameModeSelector
         gameMode={gameMode}
         onGameModeChange={onGameModeChange}
+        aiDifficulty={aiDifficulty}
+        onAIDifficultyChange={onAIDifficultyChange}
+        showAIDifficultySelector={showAIDifficultySelector}
+        onToggleAIDifficultySelector={onToggleAIDifficultySelector}
         isMobile={isMobile}
       />
     </div>
