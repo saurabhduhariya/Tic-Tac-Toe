@@ -3,6 +3,7 @@ import React from 'react';
 import MatchTypeSelector from './MatchTypeSelector';
 import GameModeSelector from './GameModeSelector';
 import MatchProgress from './MatchProgress';
+import { useTheme } from '../../contexts/ThemeContext';
 
 const Sidebar = ({
   totalRounds,
@@ -26,8 +27,16 @@ const Sidebar = ({
   onBackToSingleGame,
   isMobile = false
 }) => {
+  const { theme } = useTheme();
+  
   return (
-    <div className={`glass-effect w-full lg:w-72 lg:flex-shrink-0 rounded-2xl p-4 lg:p-5 border border-cyan-600 h-fit lg:mt-[5%] lg:self-start ${isMobile ? 'mb-5' : ''}`}>
+    <div 
+      className={`w-full lg:w-72 lg:flex-shrink-0 rounded-2xl p-4 lg:p-5 h-fit lg:mt-[5%] lg:self-start backdrop-filter backdrop-blur-lg border ${theme.border} ${isMobile ? 'mb-5' : ''}`}
+      style={{ 
+        background: theme.cardBg,
+        boxShadow: `0 8px 32px 0 rgba(0, 0, 0, 0.36), ${theme.glow}`
+      }}
+    >
       {totalRounds === 1 && (
         <MatchTypeSelector
           totalRounds={totalRounds}
